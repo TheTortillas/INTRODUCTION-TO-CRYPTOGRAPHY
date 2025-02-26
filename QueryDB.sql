@@ -141,15 +141,6 @@ END $$
 DELIMITER ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PRUEBAS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-CALL sp_insert_user('Sebastián', 'Morales', 'Palacios', 'sebas@gmail.com', 'password123', @status_code, @message);
-SELECT @status_code, @message;
-
-CALL sp_login_user('sebas@gmail.com', 'password123', @user_id, @status_code, @message);
-SELECT @user_id, @status_code, @message;
-
-CALL sp_get_user_by_id(1, @status_code, @message);
-SELECT @status_code, @message;
-
 select * from users;
 -- drop database intro_to_crypto;
 -- truncate table users;

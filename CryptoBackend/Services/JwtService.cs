@@ -2,7 +2,6 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace CryptoBackend.Services
@@ -16,16 +15,6 @@ namespace CryptoBackend.Services
             _config = config;
         }
 
-        private string GenerateSalt(int size = 16)
-        {
-            var saltBytes = new byte[size];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(saltBytes);
-            }
-            return Convert.ToBase64String(saltBytes);
-        }
-
         public string CreateToken(UserDTO user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -34,6 +23,7 @@ namespace CryptoBackend.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new Claim("id", user.ID.ToString()),
                     new Claim("firstname", user.Firstname),
                     new Claim("lastname", user.Lastname),
                     new Claim("secondlastname", user.SecondLastname),
@@ -68,6 +58,7 @@ namespace CryptoBackend.Services
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
+                var id = jwtToken.Claims.First(x => x.Type == "id").Value;
                 var firstname = jwtToken.Claims.First(x => x.Type == "firstname").Value;
                 var lastname = jwtToken.Claims.First(x => x.Type == "lastname").Value;
                 var secondlastname = jwtToken.Claims.First(x => x.Type == "secondlastname").Value;
@@ -75,6 +66,7 @@ namespace CryptoBackend.Services
 
                 var user = new UserDTO
                 {
+                    ID = int.Parse(id),
                     Firstname = firstname,
                     Lastname = lastname,
                     SecondLastname = secondlastname,

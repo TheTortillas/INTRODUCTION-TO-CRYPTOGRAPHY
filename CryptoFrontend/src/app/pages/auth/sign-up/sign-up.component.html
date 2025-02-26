@@ -1,0 +1,135 @@
+<main class="flex justify-center py-10">
+  <div class="w-1/3 p-4">
+    <h3 class="text-center">Crear cuenta</h3>
+
+    <form [formGroup]="form">
+      <mat-divider class="mt-10 p-4"></mat-divider>
+
+      <!-- Nombre -->
+      <div class="firstname-container">
+        <label
+          for="firstname"
+          class="block mb-2 text-xl font-medium text-gray-900"
+          >Nombre:</label
+        >
+        <mat-form-field class="w-full">
+          <mat-label>Ingresa tu nombre</mat-label>
+          <input matInput formControlName="firstname" required />
+          <mat-error
+            *ngIf="
+              form.get('firstname')?.invalid && form.get('firstname')?.touched
+            "
+          >
+            El nombre es requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Apellido Paterno -->
+      <div class="lastname-container">
+        <label
+          for="lastname"
+          class="block mb-2 text-xl font-medium text-gray-900"
+          >Apellido Paterno:</label
+        >
+        <mat-form-field class="w-full">
+          <mat-label>Ingresa tu apellido paterno</mat-label>
+          <input matInput formControlName="lastname" required />
+          <mat-error
+            *ngIf="
+              form.get('lastname')?.invalid && form.get('lastname')?.touched
+            "
+          >
+            El apellido paterno es requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Apellido Materno -->
+      <div class="secondlastname-container">
+        <label
+          for="secondlastname"
+          class="block mb-2 text-xl font-medium text-gray-900"
+          >Apellido Materno:</label
+        >
+        <mat-form-field class="w-full">
+          <mat-label>Ingresa tu apellido materno</mat-label>
+          <input matInput formControlName="secondlastname" required />
+          <mat-error
+            *ngIf="
+              form.get('secondlastname')?.invalid &&
+              form.get('secondlastname')?.touched
+            "
+          >
+            El apellido materno es requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Email -->
+      <div class="email-container">
+        <label for="email" class="block mb-2 text-xl font-medium text-gray-900"
+          >Correo electrónico:</label
+        >
+        <mat-form-field class="w-full">
+          <mat-label>Ingresa tu correo electrónico</mat-label>
+          <input matInput formControlName="email" required />
+          <mat-error
+            *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+          >
+            {{ updateEmailErrorMessage() }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="password-container">
+        <label
+          for="password"
+          class="block mb-2 text-xl font-medium text-gray-900"
+          >Contraseña:</label
+        >
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Ingresa tu contraseña</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hide() ? 'password' : 'text'"
+            required
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="clickEvent($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()"
+          >
+            <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error
+            *ngIf="
+              form.get('password')?.invalid && form.get('password')?.touched
+            "
+          >
+            La contraseña debe tener al menos 6 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+      <br />
+    </form>
+
+    <div class="next-button w-full">
+      <button mat-flat-button color="primary" class="w-full" (click)="signUp()">
+        Registrarse
+      </button>
+    </div>
+
+    <div class="login-button flex flex-col justify-center mt-4">
+      <a mat-button routerLink="../sign-in" class="text-center">
+        ¿Ya tienes cuenta? Inicia sesión aquí
+      </a>
+    </div>
+  </div>
+</main>

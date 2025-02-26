@@ -35,7 +35,7 @@ namespace CryptoBackend.Controllers
         }
 
 
-        [HttpPost("Register", Name = "PostRegister")]
+        [HttpPost("SignUp", Name = "PostSignUp")]
         public async Task<IActionResult> Register([FromBody] RegistrationRequest request)
         {
             try
@@ -68,7 +68,7 @@ namespace CryptoBackend.Controllers
             }
         }
 
-        [HttpPost("Login", Name = "PostLogin")]
+        [HttpPost("SignIn", Name = "PostSignIn")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             try
